@@ -186,4 +186,5 @@ class Lattice:
             energy_lattice[site_to_update[0], site_to_update[1]] = energy_lattice[
                                                                        site_to_update[0], site_to_update[1]] + 1
         # returning the updated lattice
+
         return energy_lattice
