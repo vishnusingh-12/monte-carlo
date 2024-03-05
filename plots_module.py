@@ -28,20 +28,20 @@ def plot_diffusivity():
     linestyle = 'dashed'
     color = ['tab:blue', 'tab:red', 'tab:green', 'tab:purple', 'tab:orange']
     markers = ['s', '^', '*', 'p', 'd']
-    x_val = [i for i in range(10, 100, 20)]
+    x_val = [10, 30, 50, 55, 60, 65, 70, 75, 80, 85, 90]
     # plt.plot(x_val[::-1], np.load('diffusivity_data/diffusivity.npy'), marker='o', color='black', linestyle=linestyle,
     #          label='Random Walk')
-    ratio = 1.5
-    for i in range(2):
-        plt.plot(x_val[::-1], np.load(f'diffusivity_data/40X40_T=1300_diffusivity_metro_{ratio}.npy'),
+    ratio = [0.5, 0.57, 1.0, 1.5, 2.0]
+    for i in range(5):
+        plt.plot(x_val[::-1], np.load(f'diffusivity_data/40X40_T=1300_diffusivity_metro_{ratio[i]}(10-50 at 5,70,90).npy'),
                  marker=markers[i],
-                 color=color[i], linestyle=linestyle, label=f'$T^{"*"}$ = {round(1 / ratio, 2)}')
-        ratio += 0.5
-    plt.legend()
-    plt.title("Diffusivity vs Coverage, $T^{*}$= KT/\u03B5")
-    plt.xlabel("Coverage")
-    plt.ylabel("Diffusivity")
-    plt.show()
+                 color=color[i], linestyle=linestyle, label=f'$T^{"*"}$ = {round(1 / ratio[i], 2)}')
+
+        plt.legend()
+        plt.title("Diffusivity vs Coverage, $T^{*}$= KT/\u03B5")
+        plt.xlabel("Coverage")
+        plt.ylabel("Diffusivity")
+        plt.show()
 
 
 def plot_energy_heatmap(lattice):

@@ -14,7 +14,6 @@ def get_msd(ions, steps):
     # so this becomes a 3d numpy array
     ions_positions = np.array([ion.position_list for ion in ions], dtype=np.float64)
     msd = []
-
     # msd calculation algorithm
     for i in range(steps):
         displacements = ions_positions[:, i:i + steps] - ions_positions[:, :steps]
