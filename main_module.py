@@ -19,10 +19,13 @@ mc_steps = 100000
 temperature = 1300
 
 # ratio of epsilon/KbT
-temperature_star = 2.0
+temperature_star = 0.5
 
 # Energy interaction between ions
-epsilon = (temperature * Boltzmann) / temperature_star
+epsilon_m = (temperature * Boltzmann) / temperature_star
+
+# Energy penalty for site
+epsilon_s = 2 * epsilon_m
 
 # inverse temperature
 beta = 1 / (Boltzmann * temperature)
@@ -31,14 +34,14 @@ beta = 1 / (Boltzmann * temperature)
 N = 40
 
 # vacancy
-vacancy = 0.15
+vacancy = 0.5
 
 # movement of ions up down left right
 # (1,0)=down,(0,1)=right,(-1,0)=up,(0,-1)=left
 moves = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
 # Creating Lattice Class Object of 40x40, vacancy, epsilon= interaction term
-lattice = Lattice(N, vacancy, epsilon)
+lattice = Lattice(N, vacancy, epsilon_m, epsilon_s)
 
 # plotting energy lattice
 plot_energy_heatmap(lattice)
@@ -148,7 +151,7 @@ ions = lattice.get_ions(lat_2d)
 msd = get_msd(ions, mc_steps // 200)  # original msd calculation
 
 # saving msd to file
-np.save(f'40x40_T=1300_r=0.5/vacancy_{round(vacancy * 100)}_metro_ep_0.5.npy', msd)
+np.save(f'40x40_T=1300_r=2.0_e_s=2/vacancy_{round(vacancy * 100)}.npy', msd)
 
 # for estimation of simulation run time
 end_time = time.time()

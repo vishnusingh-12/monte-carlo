@@ -5,13 +5,14 @@ from ions import Ion
 
 
 class Lattice:
-    def __init__(self, size, vacancy, epsilon):
+    def __init__(self, size, vacancy, epsilon_m, epsilon_s):
         # size is the dimensions of the square lattice
         # vacancy is the percentage of vacancies present in lattice (0.0-1.0)
         # epsilon is the interaction term between the ions
         self.size = size
         self.vacancy = vacancy
-        self.epsilon = epsilon
+        self.epsilon_m = epsilon_m
+        self.epsilon_s = epsilon_s
         self.energy_lattice = self.get_energy_lattice()
 
     def delta_e(self, initial_pos, final_pos, lattice):
@@ -32,7 +33,7 @@ class Lattice:
         values_of_initial_neighbours = np.array([lat[i, j] for (i, j) in self.get_neighbours(initial_pos)])
 
         # initial energy of the ion according to ising model and adding energy penalty from energy lattice
-        initial_energy = sum(self.epsilon * values_of_initial_neighbours) + self.epsilon * self.energy_lattice[
+        initial_energy = sum(self.epsilon_m * values_of_initial_neighbours) + self.epsilon_s * self.energy_lattice[
             initial_pos[0], initial_pos[1]]
 
         # ion making a jump to final position to calculate final energy
@@ -43,7 +44,7 @@ class Lattice:
         values_of_final_neighbours = np.array([lat[i, j] for (i, j) in self.get_neighbours(final_pos)])
 
         # final energy of the ion according to the ising model and adding energy penalty from energy lattice
-        final_energy = sum(self.epsilon * values_of_final_neighbours) + self.epsilon * self.energy_lattice[
+        final_energy = sum(self.epsilon_m * values_of_final_neighbours) + self.epsilon_s * self.energy_lattice[
             final_pos[0], final_pos[1]]
 
         # calculating delta_e
